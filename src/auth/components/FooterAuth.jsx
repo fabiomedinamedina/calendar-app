@@ -1,11 +1,10 @@
 import logoFM from "/logo-fm-copyright.svg";
 
-
 export const FooterAuth = () => {
   return (
     <footer className="mt-3 lg-5 mb-4 mx-3 d-flex flex-column text-center text-lg-end">
       <a href="https://fabiomedina.com">
-        <img src={logoFM} alt="Logo Fabio Medina" className="pb-2"/>
+        <img src={logoFM} alt="Logo Fabio Medina" className="pb-2" />
       </a>
       <small>
         ©2023 Todos los derechos reservados.
@@ -17,7 +16,7 @@ export const FooterAuth = () => {
           Fabio Medina Medina
         </a>
       </small>
-      <div className="d-flex gap-2 justify-content-center justify-content-lg-end">
+      <div className="social-links d-flex gap-2 justify-content-center justify-content-lg-end">
         <a
           href="https://www.linkedin.com/in/fabio-medina-medina/"
           target="blank"
@@ -41,5 +40,6 @@ export const FooterAuth = () => {
         </a>
       </div>
     </footer>
+    
   );
 };

@@ -1,3 +1,4 @@
+/* OVERRIDE BOOTSTRAP COLOR AND STYLES */
 :root,
 [data-bs-theme=light] {
   --bs-blue: #D7263D;
@@ -45,6 +46,8 @@
   --bs-btn-border-width: 0;
 }
 
+/* BTN OVERRIDE */
+
 .btn {
   --bs-btn-border-width: 0;
   box-shadow: 0 7px 10px rgba(235, 29, 37, 0.4);
@@ -74,6 +77,8 @@
   font-weight: 700;
 }
 
+/* TABS OVERRIDE */
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   background-color: transparent;
   color: var(--bs-primary);
@@ -81,6 +86,8 @@
   border-bottom: 2px solid var(--bs-primary);
   border-radius: 0;
 }
+
+/* FORM OVERRIDE */
 
 .form-control {
   color: var(--bs-body-color);
@@ -92,6 +99,61 @@
   border-color: #C6C6C6;
   box-shadow: 0 0 7px rgba(107, 107, 107, 0.4);
 }
+
+/* DROPDOWN OVERRIDE */
+
+.dropdown-menu {
+  --bs-dropdown-border-radius: 0.5rem;
+  --bs-dropdown-link-active-bg: var(--bs-primary);
+  --bs-dropdown-link-color: var(--bs-body-color);
+  --bs-dropdown-link-hover-bg: #F7F7F7;
+  --bs-dropdown-link-hover-color: var(--bs-body-color);
+  --bs-dropdown-border-width: 0;
+  --bs-dropdown-spacer: 0.5rem;
+}
+
+.dropdown-item {
+  transition: all 0.3s ease-in-out;
+}
+
+/* FOOTER */
+
+@media (min-width: 992px) {
+  .container-copyrgith {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: .875em;
+  }
+}
+
+.copyright-link {
+  font-weight: 700;
+  color: #0A2E36;
+  transition: all 0.2s ease-in-out;
+}
+
+.copyright-link:is(:active, :hover) {
+  color: #38EF7D;
+}
+
+.social-links {
+  font-size: 0.9rem;
+}
+
+.social-media {
+  gap: 0.5rem;
+}
+
+.social-media a{
+  font-size: 0.8rem;
+}
+
+.social-media a:not(:last-child) {
+  padding-right: 1rem;
+}
+
+/* LOGIN PAGE */
 
 .login_page_container {
   height: 100vh;
@@ -127,37 +189,132 @@
   }
 }
 
-
-
-/* FOOTER */
+.container-information {
+  max-width: 800px;
+}
 
 @media (min-width: 992px) {
-  .container-copyrgith {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: .875em;
+  .container-information {
+    padding-top: 6rem !important;
+    padding-right: 6rem!important;
+    padding-left: 6rem!important;
   }
 }
 
-.copyright-link {
+.container-information h1 {
+  font-weight: 900;
+}
+
+/* CALENDAR PAGE */
+
+.container-calendar {
+  height: calc( 100vh - 260px );
+}
+
+@media (min-width: 768px) {
+  .container-calendar {
+    height: calc( 100vh - 190px );
+  }
+}
+
+/* BIG CALENDAR  */
+
+
+.container-calendar .rbc-time-view .rbc-row {
+  min-height: auto;
+}
+
+.container-calendar .rbc-toolbar-label {
+  color: var(--bs-body-color);
+  text-transform: uppercase;
   font-weight: 700;
-  color: #0A2E36;
-  transition: all 0.2s ease-in-out;
+  font-size: 1.3rem;
 }
 
-.copyright-link:is(:active, :hover) {
-  color: #38EF7D;
+.container-calendar .rbc-toolbar button {
+  color: var(--bs-body-color);
+  border: 1px solid #EEE;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
 }
 
-.social-media {
-  gap: 0.5rem;
+.container-calendar .rbc-toolbar button:hover,
+.container-calendar .rbc-toolbar button:active,
+.container-calendar .rbc-toolbar button.rbc-active,
+.container-calendar .rbc-toolbar button:active:hover,
+.container-calendar .rbc-toolbar button:active:focus,
+.container-calendar .rbc-toolbar button.rbc-active:hover,
+.container-calendar .rbc-toolbar button.rbc-active:focus {
+  background-color: var(--bs-primary);
+  color: #FFF;
+  border-color: var(--bs-primary);
+  box-shadow: none;
 }
 
-.social-media a{
-  font-size: 0.8rem;
+.container-calendar .rbc-header,
+.container-calendar .rbc-header.rbc-today {
+  background: #FFF2F4;
+  color: var(--bs-primary);
+  border-bottom: 2px solid var(--bs-primary);
 }
 
-.social-media a:not(:last-child) {
-  padding-right: 1rem;
+.container-calendar .rbc-today {
+  background: #F9F9F9;
 }
+
+.container-calendar .rbc-header + .rbc-header {
+  border-left: 0;
+}
+
+.container-calendar .rbc-header,
+.container-calendar .rbc-header .rbc-button-link {
+  padding: 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.container-calendar .rbc-time-view,
+.container-calendar .rbc-month-view,
+.container-calendar .rbc-agenda-view table.rbc-agenda-table {
+  border: 1px solid #EEE;
+
+}
+
+.container-calendar .rbc-time-view,
+.container-calendar .rbc-month-view,
+.container-calendar .rbc-agenda-view {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.container-calendar .rbc-time-header.rbc-overflowing {
+  border-right: 1px solid #EEE;
+}
+
+.container-calendar .rbc-time-content > * + * > *,
+.container-calendar .rbc-day-bg + .rbc-day-bg,
+.container-calendar .rbc-time-header-content {
+  border-left: 1px solid #EEE;
+}
+
+.container-calendar .rbc-time-content {
+  border-top: 2px solid #EEE;
+}
+
+.container-calendar .rbc-timeslot-group {
+  border-bottom: 1px solid #EEE;
+}
+
+.container-calendar .rbc-agenda-view table.rbc-agenda-table thead > tr > th {
+  border-bottom: 2px solid var(--bs-primary);
+}
+
+.container-calendar .rbc-agenda-view table.rbc-agenda-table tbody > tr > td + td {
+  border-left: 1px solid #FFF;
+}
+
+.container-calendar .rbc-current-time-indicator {
+  height: 2px;
+}
+
+
