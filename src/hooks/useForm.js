@@ -56,6 +56,7 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
     onInputChange,
     onDateChange,
     onResetForm,
-    isFormValid
+    isFormValid,
+    setFormState
   };
 };

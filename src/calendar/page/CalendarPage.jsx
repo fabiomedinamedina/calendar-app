@@ -1,36 +1,24 @@
-import { Calendar } from 'react-big-calendar';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-
-import { NavBar, FooterCalendar, CalendarEvent, CalendarModal } from '../components';
-import { localizer, getMessagesES } from '../../helpers';
-import { addHours } from 'date-fns';
 import { useState } from 'react';
+import { Calendar } from 'react-big-calendar';
 
+import { NavBar, FooterCalendar, CalendarEvent, CalendarModal, FabAddNew, FabDelete } from '../components';
+import { localizer, getMessagesES, getColors } from '../../helpers';
+import { useCalendarStore, useUiStore } from '../../hooks';
 
-const events = [
-  {
-    title: 'Cumpleaños del jefe',
-    notes: 'Hay que comprar el pastel',
-    start: new Date(),
-    end: addHours( new Date(), 20 ),
-    bgColor: '#EEE9FF',
-    color: '#7751D9',
-    user: {
-      id: '123',
-      name: 'Fabio Medina'
-    }
-  }
-]
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 export const CalendarPage = () => {
 
   const [lastView, setLastView] = useState( localStorage.getItem('viewCalendar') || 'week' );
+  const { events, setActiveEvent, activeEvent } = useCalendarStore();
+  const { toggleDateModal } = useUiStore();
   
 
   const getStyleEvent = (event, start, end, isSelected) => {
+    const { bgColor, color } = getColors( event.color );
     const style = {
-      backgroundColor: event.bgColor,
-      color: event.color,
+      backgroundColor: bgColor,
+      color: color,
       borderRadius: '7px',
       border: '0',
     }
@@ -39,11 +27,13 @@ export const CalendarPage = () => {
   }
 
   const onDoubleClick = ( event ) => {
-    console.log({ doubleClick: event });
+    toggleDateModal();
+    // console.log({ doubleClick: event });
   }
 
   const onSelect = ( event ) => {
-    console.log({ click: event });
+    // console.log(event);
+    setActiveEvent( event );
   }
 
   const onViewChanged = ( event ) => {
@@ -76,6 +66,8 @@ export const CalendarPage = () => {
           <CalendarModal />
         </div>
       </div>
+      <FabAddNew />
+      <FabDelete />
       <FooterCalendar />
     </>
   );

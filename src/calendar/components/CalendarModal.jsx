@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { differenceInMinutes } from 'date-fns';
 import Modal from 'react-modal';
-import { addHours, differenceInMinutes, differenceInSeconds } from 'date-fns';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
 
-import { useForm } from '../../hooks/useForm';
+import { useCalendarStore, useForm, useUiStore } from '../../hooks';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -27,10 +27,9 @@ Modal.setAppElement("#root");
 const formData = {
   title: '',
   notes: '',
-  start: new Date(),
-  end: addHours( new Date(), 2 ),
+  start: '',
+  end: '',
   color: 'green'
-
 }
 
 const formValidations = {
@@ -41,13 +40,14 @@ const formValidations = {
 
 export const CalendarModal = () => {
   
-  const [isOpen, setIsOpen] = useState(true);
   const [formSubmited, setFormSubmited] = useState(false);
+  const { isDateModalOpen, toggleDateModal } = useUiStore();
+  const { activeEvent, startSavingEvent, setClearActiveEvent } = useCalendarStore();
 
   const { 
-    title, notes, start, end, color,
+    formState ,title, notes, start, end, color,
     isFormValid, titleValid, notesValid, colorValid,
-    onInputChange, onDateChange
+    onInputChange, onDateChange, setFormState, onResetForm
   } = useForm( formData, formValidations );
 
   const endClass = useMemo( () => {
@@ -58,7 +58,7 @@ export const CalendarModal = () => {
       class: '',
       message: 'La fecha fin debe ser mayor a la de inicio'
     };
-    if( isNaN( difference ) || difference <= 0 ){
+    if( isNaN( difference ) || difference <= 15 ){
       validationDate.class = 'is-invalid';
     }else{
       validationDate.class = 'is-valid';
@@ -66,28 +66,39 @@ export const CalendarModal = () => {
     
     return validationDate;
 
-  }, [start, end, formSubmited ])
+  }, [start, end, formSubmited ]);
 
-  const onCloseModal = () => {
-    console.log("cerrando");
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    if( activeEvent !== null ){
+      setFormState( { ...activeEvent } );
+    }
+  
+  }, [ activeEvent ]);
+  
+  const handleCloseModal = () => {
+    toggleDateModal();
+    setFormSubmited(false);
+    setClearActiveEvent();
+  }
 
-  const onSubmitForm = (event) => {
-    
+  const onSubmitForm = async ( event ) => {
+
     event.preventDefault(); 
     setFormSubmited(true);
     if( !isFormValid ) return;
     if( endClass?.class === "is-invalid" ) return;
-    
-    console.log('paso todo los filtros');
+
+    await startSavingEvent( formState );
+    toggleDateModal();
+    setFormSubmited(false);
+    setClearActiveEvent();
 
   }
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onCloseModal}
+      isOpen={ isDateModalOpen }
+      onRequestClose={handleCloseModal}
       style={customStyles}
       className="modal"
       overlayClassName="modal-overlay"
@@ -162,9 +173,9 @@ export const CalendarModal = () => {
         <select
           className={`form-select ${ formSubmited ? 'is': '' }-${ !colorValid ? 'valid': 'invalid' }`}
           aria-label="Select color"
-          defaultValue={ color }
+          value={ color }
           onChange={ onInputChange }
-          required
+          name="color"
         >
           <option value="purple">Morado</option>
           <option value="red">Rojo</option>
