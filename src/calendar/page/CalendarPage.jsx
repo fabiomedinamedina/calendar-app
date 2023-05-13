@@ -1,7 +1,7 @@
 import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import { NavBar, FooterCalendar, CalendarEvent } from '../components';
+import { NavBar, FooterCalendar, CalendarEvent, CalendarModal } from '../components';
 import { localizer, getMessagesES } from '../../helpers';
 import { addHours } from 'date-fns';
 import { useState } from 'react';
@@ -73,6 +73,7 @@ export const CalendarPage = () => {
             onView={ onViewChanged }
 
           />
+          <CalendarModal />
         </div>
       </div>
       <FooterCalendar />
