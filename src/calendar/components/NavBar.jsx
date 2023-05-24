@@ -1,6 +1,10 @@
-import logoCalendar from "../../assets/logo-calendar-app.svg";
+import logoCalendar from '../../assets/logo-calendar-app.svg';
+import { useAuthStore } from '../../hooks';
 
 export const NavBar = () => {
+
+  const { user, startLogout } =  useAuthStore();
+
   return (
     <nav className="navbar bg-white shadow-sm">
       <div className="container-fluid px-4">
@@ -18,7 +22,7 @@ export const NavBar = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Emilio
+            { user.name }
             <span className="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-warning">
               99+
               <span className="visually-hidden">unread messages</span>
@@ -37,7 +41,9 @@ export const NavBar = () => {
             </li>
             <li><hr className="dropdown-divider" /></li>
             <li>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="#"
+                onClick={ startLogout }
+              >
               <i className="fa-solid fa-right-from-bracket"></i> Cerrar sesión
               </a>
             </li>

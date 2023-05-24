@@ -446,3 +446,11 @@
 .fab-delete {
   bottom: 175px;
 }
+
+.swal2-styled.swal2-confirm {
+  background: var(--bs-primary) !important;
+  border: 0 !important;
+  font-weight: 700;
+  padding: 10px 30px;
+  box-shadow: 0 7px 10px rgba(235, 29, 37, 0.4);
+}

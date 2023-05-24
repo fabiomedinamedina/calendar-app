@@ -1,8 +1,22 @@
-import imageAuth from "../../assets/image-auth.png";
-import logoCalendar from "../../assets/logo-calendar-app.svg";
-import { FooterAuth, TabsForms } from "../components";
+import { useEffect } from 'react';
+import imageAuth from '../../assets/image-auth.png';
+import logoCalendar from '../../assets/logo-calendar-app.svg';
+import { FooterAuth, TabsForms } from '../components';
+import { useAuthStore } from '../../hooks';
+import Swal from 'sweetalert2';
 
 export const LoginPage = () => {
+
+  const { errorMessage } = useAuthStore()
+
+
+  useEffect(() => {
+    if( errorMessage !== undefined ){
+      Swal.fire( errorMessage.title, errorMessage.msg, 'error' );
+    }
+  }, [errorMessage]);
+
+  
   
   return (
     <div id="login_page_wrapper">

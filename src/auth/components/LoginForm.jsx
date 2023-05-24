@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from '../../hooks';
+import { useAuthStore, useForm } from '../../hooks';
 
 const formData = {
   email: '',
@@ -7,16 +7,18 @@ const formData = {
 }
 
 const emailValidation = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
-const passwordValidation = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
+
 const formValidations = {
   email: [(value) => emailValidation.test(value) , 'Escribe un correo valido correo@example.com'],
-  password: [(value) => passwordValidation.test(value) , 'La contraseña debe tener más de 6 caracteres y por lo menos una mayúscula y un número'],
+  password: [(value) => value.length > 2 , 'Escribe una contraseña válida'],
 }
 
 
 export const LoginForm = () => {
 
   const [formSubmited, setFormSubmited] = useState(false);
+  const { startLogin } = useAuthStore();
+
 
   const {
     email, password, onInputChange,
@@ -29,6 +31,8 @@ export const LoginForm = () => {
     setFormSubmited(true);
     
     if( !isFormValid ) return;
+    
+    startLogin( { email, password } );
 
   }
 
@@ -37,7 +41,7 @@ export const LoginForm = () => {
       <div className="input-group has-validation mb-3">
         <input
           type="email"
-          className={`form-control ${ formSubmited ? 'is': '' }-${ !emailValid ? 'valid': 'invalid' }`}
+          className={`form-control rounded-2 ${ formSubmited ? 'is': '' }-${ !emailValid ? 'valid': 'invalid' }`}
           name="email"
           placeholder="Correo electrónico"
           value={ email }
@@ -45,20 +49,20 @@ export const LoginForm = () => {
         />
         <div className="invalid-feedback">{ emailValid }</div>
       </div>
-      <div className="input-group has-validation mb-3">
+      <div className="input-group has-validation mb-0">
         <input
           type="password"
           name="password"
-          className={`form-control ${ formSubmited ? 'is': '' }-${ !passwordValid ? 'valid': 'invalid' }`}
+          className={`form-control rounded-2 ${ formSubmited ? 'is': '' }-${ !passwordValid ? 'valid': 'invalid' }`}
           placeholder="Contraseña"
           value={ password }
           onChange={ onInputChange }
         />
         <div className="invalid-feedback">{ passwordValid }</div> 
-        <div className="form-text">
+      </div>
+      <div className="form-text mb-3">
           Nunca compartas tu contraseña con alguien más
         </div>
-      </div>
       <button type="submit" className="btn btn-primary col-12 mx-auto d-grid">
         Iniciar sesión
       </button>

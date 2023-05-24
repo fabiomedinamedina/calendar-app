@@ -16,6 +16,7 @@ export const useCalendarStore = () => {
 
   const startSavingEvent = async( calendarEvent ) => {
     // TODO: llegar al backend y recibir información
+    console.log(calendarEvent);
 
     if( calendarEvent._id ){
       dispatch( onUpdateEvent( { ...calendarEvent } ));

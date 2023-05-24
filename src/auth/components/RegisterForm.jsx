@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from '../../hooks';
+import { useAuthStore, useForm } from '../../hooks';
 
 const formData = {
   name: '',
@@ -18,6 +18,7 @@ const formValidations = {
 export const RegisterForm = () => {
 
   const [formSubmited, setFormSubmited] = useState(false);
+  const { startRegister } = useAuthStore();
   
   const {
     name, email, password, onInputChange,
@@ -31,6 +32,8 @@ export const RegisterForm = () => {
     
     if( !isFormValid ) return;
 
+    startRegister({ name, email, password }) 
+
   }
 
   
@@ -39,7 +42,7 @@ export const RegisterForm = () => {
       <div className="input-group has-validation mb-3">
         <input
           type="text"
-          className={`form-control ${ formSubmited ? 'is': '' }-${ !nameValid ? 'valid': 'invalid' }`}
+          className={`form-control rounded-2 ${ formSubmited ? 'is': '' }-${ !nameValid ? 'valid': 'invalid' }`}
           placeholder="Nombre completo"
           onChange={ onInputChange }
           name="name"
@@ -50,7 +53,7 @@ export const RegisterForm = () => {
       <div className="input-group has-validation mb-3">
         <input
           type="email"
-          className={`form-control ${ formSubmited ? 'is': '' }-${ !emailValid ? 'valid': 'invalid' }`}
+          className={`form-control rounded-2 ${ formSubmited ? 'is': '' }-${ !emailValid ? 'valid': 'invalid' }`}
           placeholder="Correo electrónico"
           onChange={ onInputChange }
           name="email"
@@ -58,20 +61,21 @@ export const RegisterForm = () => {
         />
         <div className="invalid-feedback">{ emailValid }</div> 
       </div>
-      <div className="input-group has-validation mb-3">
+      <div className="input-group has-validation mb-0">
         <input
           type="password"
-          className={`form-control ${ formSubmited ? 'is': '' }-${ !passwordValid ? 'valid': 'invalid' }`}
+          className={`form-control rounded-2 ${ formSubmited ? 'is': '' }-${ !passwordValid ? 'valid': 'invalid' }`}
           placeholder="Contraseña"
           onChange={ onInputChange }
           name="password"
           value={ password }
         />
         <div className="invalid-feedback">{ passwordValid }</div> 
-        <div className="form-text">
+       
+      </div>
+      <div className="form-text mb-3">
           Nunca compartas tu contraseña con alguien más
         </div>
-      </div>
       <button type="submit" className="btn btn-primary col-12 mx-auto d-grid">
         Registrarme
       </button>
