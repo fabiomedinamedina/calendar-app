@@ -1,9 +1,10 @@
 import logoCalendar from '../../assets/logo-calendar-app.svg';
-import { useAuthStore } from '../../hooks';
+import { useAuthStore, useCalendarStore } from '../../hooks';
 
 export const NavBar = () => {
 
   const { user, startLogout } =  useAuthStore();
+  const { events } = useCalendarStore()
 
   return (
     <nav className="navbar bg-white shadow-sm">
@@ -24,8 +25,12 @@ export const NavBar = () => {
           >
             { user.name }
             <span className="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-warning">
-              99+
-              <span className="visually-hidden">unread messages</span>
+              { 
+                events.length > 99
+                ? '99+'
+                : events.length
+              }
+              <span className="visually-hidden">Total de eventos</span>
             </span>
           </button>
           <ul className="dropdown-menu dropdown-menu-end shadow-lg">
