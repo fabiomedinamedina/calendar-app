@@ -7,8 +7,7 @@ export const FabAddNew = () => {
     title: '',
     notes: '',
     start: new Date(),
-    end: addHours( new Date(), 20 ),
-    bgColor: '#EEE9FF',
+    end: addHours( new Date(), 1 ),
     color: 'red',
     user: {
       id: '123',
