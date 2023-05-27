@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isDateModalOpen: false,
-  message: undefined,
 };
 
 export const uiSlice = createSlice({
