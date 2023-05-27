@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { uiSlice } from './ui';
 import { calendarSlice } from './calendar';
 import { authSlice } from './auth';
+import { getEnvVariables } from '../helpers/getEnvVariables';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,5 @@ export const store = configureStore({
   middleware: ( getDefaultMiddleware ) => getDefaultMiddleware({
     serializableCheck: false
   }),
-  devTools: import.meta.env.MODE !== 'production',
+  devTools: getEnvVariables().MODE !== 'production',
 })

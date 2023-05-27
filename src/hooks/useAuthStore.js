@@ -22,8 +22,7 @@ export const useAuthStore = () => {
       dispatch( onLogin({ name: data.name, uid: data.uid }) );
     
     } catch (error) {
-
-      dispatch( onLogout({ title: 'Error de autenticación', msg: 'El usuario o contraseña incorrectas' }));
+      dispatch( onLogout({ title: 'Error de autenticación', msg: error.response.data?.msg }));
       setTimeout(() => {
         dispatch( clearErrorMessage() );
       }, 30);
