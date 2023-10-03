@@ -1,3 +1,4 @@
+import { Offline, Online } from 'react-detect-offline';
 import logoCalendar from '../../assets/logo-calendar-app.svg';
 import { useAuthStore, useCalendarStore } from '../../hooks';
 
@@ -16,6 +17,14 @@ export const NavBar = () => {
             height="40"
           />
         </a>
+        <div>
+          <Online>
+            <span className='text-success'>Online</span>
+          </Online>
+          <Offline>
+            <span className='text-danger'>Offline</span>
+          </Offline>
+        </div>
         <div className="dropdown">
           <button
             className="btn btn-primary dropdown-toggle"

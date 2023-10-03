@@ -60,7 +60,7 @@ export const useCalendarStore = () => {
       // CREACIÓN
   
       const { data } = await calendarApi.post('/events/new', calendarEvent);
-      console.log(data);
+      // console.log(data);
       dispatch( onAddNewEvent({ ...calendarEvent, id: data.event.id, user }) );
       dispatch( onMessage({
         title: 'Creación de evento',
@@ -71,10 +71,11 @@ export const useCalendarStore = () => {
         dispatch( clearMessage() );
       }, 30);
       
+      
     } catch (error) {
       dispatch( onMessage({
         title: 'Error en evento',
-        msg: error.response.data?.msg,
+        msg: error.response?.data?.msg,
         type: 'error'
       }));
       setTimeout(() => {
