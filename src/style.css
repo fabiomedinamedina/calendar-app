@@ -118,6 +118,9 @@
 }
 
 /* DROPDOWN OVERRIDE */
+.badge-mode {
+  font-size: 0.8rem;
+}
 
 .dropdown-menu {
   --bs-dropdown-border-radius: 0.5rem;

@@ -1,3 +1,4 @@
+import { Offline, Online } from 'react-detect-offline';
 import logoCalendar from '../../assets/logo-calendar-app.svg';
 import { useAuthStore, useCalendarStore } from '../../hooks';
 
@@ -15,6 +16,13 @@ export const NavBar = () => {
             alt="Logo Calendar App - Fabio Medina"
             height="40"
           />
+          
+          <Online>
+            <span className="badge-mode ms-3 badge text-bg-success">Mode: Online</span>
+          </Online>
+          <Offline>
+            <span className="badge-mode ms-3 badge bg-secondary">Mode: Offline</span>
+          </Offline>
         </a>
         <div className="dropdown">
           <button
